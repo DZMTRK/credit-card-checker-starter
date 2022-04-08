@@ -23,38 +23,41 @@ const mystery5 = [4, 9, 1, 3, 5, 4, 0, 4, 6, 3, 0, 7, 2, 5, 2, 3]
 const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, invalid3, invalid4, invalid5, mystery1, mystery2, mystery3, mystery4, mystery5]
 
 
-// Add your functions below:
-const validateCred = arr => {
-    console.log(checkSum(arr));
-    if (checkSum(arr) % 10 === 0) {
-        return true;
-    } else {
-        return false;
-    };
-};
+// 1. 
+// Luhn algorythm implementation
+// To find out if a credit card number is valid or not
 
+//If the sum modulo 10 is 0 (if the sum divided by 10 has a remainder of 0) then the number is valid, otherwise, it’s invalid.
+const validateCred = arr => checkSum(arr) % 10 === 0 ? true : false;
+
+//As you iterate to the left, every other digit is doubled (the check digit is not doubled). If the number is greater than 9 after doubling, subtract 9 from its value.
 const doubleElem = arr => {
     const arrNew = arr;
-    for (let i = 0; i < arrNew.length-1; i++) {
-            arrNew[i] *= 2; 
+    for (let i = arr.length - 2; i >= 0; i -= 2) {
+        arrNew[i] *= 2;
+        if (arrNew[i] > 9) {
+            arrNew[i] -= 9;
+        };
     };
     return arrNew;
 };
 
-const checkSum = arr => {
-    const arrNew = doubleElem(arr);
-    let total = arrNew[arrNew.length - 1];
-    // console.log(total);
-    for (let i = arrNew.length - 2; i > 0; i-=2){
-        if (arrNew[i] > 9) {
-            arrNew[i] -= 9;
-        };
-        total += arrNew[i];
-    };
-    return total;
+
+//Sum up all the digits in the credit card number.
+const checkSum = arr => doubleElem(arr).reduce((total, amount) => total += amount);
+
+
+
+// 2.
+//The role of findInvalidCards() is to check through the nested array for which numbers are invalid, and return another nested array of invalid cards.
+// Task: Create another function, findInvalidCards() that has one parameter for a nested array of credit card numbers. The role of findInvalidCards() is to check through the nested array for which numbers are invalid, and return another nested array of invalid cards.
+
+const findInvalidCards = arr => {
+    const invalidCardsArray = [];
+    //arr.forEach(element => validateCred(element) ? invalidCardsArray.push('true') : invalidCardsArray.push('false'));
+    arr.forEach(element => validateCred(element) ? element = element: invalidCardsArray.push(element));
+    return invalidCardsArray;
 };
 
-// console.log(valid1);
-// console.log(doubleElem(valid1));
-// console.log(checkSum(valid1));
- console.log(validateCred(valid1));
+
+console.log(findInvalidCards(batch));
