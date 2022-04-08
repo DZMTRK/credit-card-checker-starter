@@ -31,6 +31,7 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 const validateCred = arr => checkSum(arr) % 10 === 0 ? true : false;
 
 //As you iterate to the left, every other digit is doubled (the check digit is not doubled). If the number is greater than 9 after doubling, subtract 9 from its value.
+
 const doubleElem = arr => {
     const arrNew = arr;
     for (let i = arr.length - 2; i >= 0; i -= 2) {
@@ -45,7 +46,6 @@ const doubleElem = arr => {
 
 //Sum up all the digits in the credit card number.
 const checkSum = arr => doubleElem(arr).reduce((total, amount) => total += amount);
-
 
 
 // 2.
