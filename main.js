@@ -30,6 +30,7 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 //If the sum modulo 10 is 0 (if the sum divided by 10 has a remainder of 0) then the number is valid, otherwise, it’s invalid.
 const validateCred = arr => checkSum(arr) % 10 === 0 ? true : false;
 
+
 //As you iterate to the left, every other digit is doubled (the check digit is not doubled). If the number is greater than 9 after doubling, subtract 9 from its value.
 
 const doubleElem = arr => {
