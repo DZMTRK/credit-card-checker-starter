@@ -24,11 +24,37 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 
 
 // Add your functions below:
+const validateCred = arr => {
+    console.log(checkSum(arr));
+    if (checkSum(arr) % 10 === 0) {
+        return true;
+    } else {
+        return false;
+    };
+};
 
+const doubleElem = arr => {
+    const arrNew = arr;
+    for (let i = 0; i < arrNew.length-1; i++) {
+            arrNew[i] *= 2; 
+    };
+    return arrNew;
+};
 
+const checkSum = arr => {
+    const arrNew = doubleElem(arr);
+    let total = arrNew[arrNew.length - 1];
+    // console.log(total);
+    for (let i = arrNew.length - 2; i > 0; i-=2){
+        if (arrNew[i] > 9) {
+            arrNew[i] -= 9;
+        };
+        total += arrNew[i];
+    };
+    return total;
+};
 
-
-
-
-
-
+// console.log(valid1);
+// console.log(doubleElem(valid1));
+// console.log(checkSum(valid1));
+ console.log(validateCred(valid1));
