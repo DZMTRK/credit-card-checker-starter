@@ -26,27 +26,32 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 // 1. 
 // Luhn algorythm implementation
 // To find out if a credit card number is valid or not
-
 //If the sum modulo 10 is 0 (if the sum divided by 10 has a remainder of 0) then the number is valid, otherwise, it’s invalid.
-const validateCred = arr => checkSum(arr) % 10 === 0 ? true : false;
-
-
-//As you iterate to the left, every other digit is doubled (the check digit is not doubled). If the number is greater than 9 after doubling, subtract 9 from its value.
-
-const doubleElem = arr => {
-    const arrNew = arr;
+const validateCred = arr => {
+    let arrayItemVal = 0;
+    let ItemSum = 0;
+    let totalItemSum = arr[arr.length - 1];
+    //summarizing every ether number moving from the right to the left starting with array position (arr.length-2)
+    //As you iterate to the left, every other digit is doubled (the check digit is not doubled). If the number is greater than 9 after doubling, subtract 9 from its value.
     for (let i = arr.length - 2; i >= 0; i -= 2) {
-        arrNew[i] *= 2;
-        if (arrNew[i] > 9) {
-            arrNew[i] -= 9;
+        arrayItemVal = arr[i]
+        arrayItemVal *= 2;
+        if (arrayItemVal > 9) {
+            arrayItemVal -= 9;
         };
+        ItemSum += arrayItemVal;
     };
-    return arrNew;
+    //summarizing rest of the numbers
+    for (let i = arr.length - 3; i >= 0; i -= 2) {
+        arrayItemVal = arr[i]
+        totalItemSum += arrayItemVal;
+    };
+    //Sum up all the digits in the credit card number.
+    totalItemSum += ItemSum;
+    return totalItemSum % 10 === 0 ? true : false;
 };
 
 
-//Sum up all the digits in the credit card number.
-const checkSum = arr => doubleElem(arr).reduce((total, amount) => total += amount);
 
 
 // 2.
@@ -55,10 +60,12 @@ const checkSum = arr => doubleElem(arr).reduce((total, amount) => total += amoun
 
 const findInvalidCards = arr => {
     const invalidCardsArray = [];
-    //arr.forEach(element => validateCred(element) ? invalidCardsArray.push('true') : invalidCardsArray.push('false'));
-    arr.forEach(element => validateCred(element) ? element = element: invalidCardsArray.push(element));
+    for (let i = 0; i < arr.length; i++) {
+        if (!validateCred(arr[i])) {
+            invalidCardsArray.push(arr[i]);
+        };
+    };
     return invalidCardsArray;
 };
-
 
 console.log(findInvalidCards(batch));
