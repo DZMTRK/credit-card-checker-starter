@@ -68,9 +68,6 @@ const findInvalidCards = arr => {
     return invalidCardsArray;
 };
 
-//console.log(findInvalidCards(batch));
-
-
 
 // 3.
 //The function, idInvalidCardCompanies() has one parameter for a nested array of invalid numbers and returns an array of companies.
