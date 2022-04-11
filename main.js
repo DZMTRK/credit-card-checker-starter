@@ -68,4 +68,34 @@ const findInvalidCards = arr => {
     return invalidCardsArray;
 };
 
-console.log(findInvalidCards(batch));
+//console.log(findInvalidCards(batch));
+
+
+
+// 3.
+//The function, idInvalidCardCompanies() has one parameter for a nested array of invalid numbers and returns an array of companies.
+// _____________________________
+// |First Digit   |Company     |
+// |______________|____________|
+// |3	|Amex (American Express)|
+// |4	|Visa                   |
+// |5	|Mastercard             |
+// |6	|Discover               |
+
+
+const idInvalidCardCompanies = arr => {
+    let companiesArray = [];
+    arr.forEach(element => {
+        companiesArray.push(element[0]);
+    });
+    for (let i = 0; i < companiesArray.length; i++) {
+        if (companiesArray[i] === 3) {companiesArray[i] = 'Amex (American Express)'};
+        if (companiesArray[i] === 4) {companiesArray[i] = 'Visa'};
+        if (companiesArray[i] === 5) {companiesArray[i] = 'Mastercard'};
+        if (companiesArray[i] === 6) {companiesArray[i] = 'Discover'};
+    };
+
+    return companiesArray;
+};
+
+console.log(idInvalidCardCompanies(findInvalidCards(batch)));
